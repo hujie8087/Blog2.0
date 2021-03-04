@@ -315,6 +315,35 @@ export default defineConfig({
               ],
             },
             {
+              name: 'article',
+              icon: 'highlight',
+              path: '/article',
+              routes: [
+                {
+                  path: '/',
+                  redirect: '/article/type',
+                },
+                {
+                  name: 'type',
+                  icon: 'smile',
+                  path: '/article/type',
+                  component: './article/type',
+                },
+                {
+                  name: 'list',
+                  icon: 'smile',
+                  path: '/article/list',
+                  component: './article/list',
+                },
+                {
+                  name: 'views',
+                  icon: 'smile',
+                  path: '/article/views',
+                  component: './article/views',
+                },
+              ],
+            },
+            {
               component: '404',
             },
           ],
@@ -328,7 +357,13 @@ export default defineConfig({
   },
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
+  proxy: {
+    '/api': {
+      target: 'http://127.0.0.1:7001/api',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
   manifest: {
     basePath: '/',
   },

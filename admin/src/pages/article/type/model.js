@@ -1,20 +1,25 @@
-import { addFakeList, queryFakeList, removeFakeList, updateFakeList } from './service';
+import {
+  addArticleTypeList,
+  queryArticleTypeList,
+  removeArticleTypeList,
+  updateArticleTypeList,
+} from './service';
 const Model = {
-  namespace: 'listAndbasicList',
+  namespace: 'articleTypeList',
   state: {
     list: [],
   },
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(queryArticleTypeList, payload);
       yield put({
         type: 'queryList',
-        payload: Array.isArray(response) ? response : [],
+        payload: response,
       });
     },
 
     *appendFetch({ payload }, { call, put }) {
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(queryArticleTypeList, payload);
       yield put({
         type: 'appendList',
         payload: Array.isArray(response) ? response : [],
@@ -25,9 +30,10 @@ const Model = {
       let callback;
 
       if (payload.id) {
-        callback = Object.keys(payload).length === 1 ? removeFakeList : updateFakeList;
+        callback =
+          Object.keys(payload).length === 1 ? removeArticleTypeList : updateArticleTypeList;
       } else {
-        callback = addFakeList;
+        callback = addArticleTypeList;
       }
 
       const response = yield call(callback, payload); // post
@@ -40,8 +46,7 @@ const Model = {
   },
   reducers: {
     queryList(state, action) {
-      console.log(action);
-      return { ...state, list: action.payload };
+      return { ...state, list: action.payload.data };
     },
 
     appendList(

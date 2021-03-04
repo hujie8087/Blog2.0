@@ -8,7 +8,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://www.fastmock.site/mock/442064042e97a0c297e8f16ecd0845e6/api',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
